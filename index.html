@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Free Stuff Radar</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>♻️</span>
+            Free Stuff Radar
+        </div>
+
+        <button class="post-nav-btn" onclick="openPostModal()">
+            + Post Something
+        </button>
+    </nav>
+
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                🌱 Campus sharing made simple
+            </div>
+
+            <h1>
+                Don't throw it away.
+                <span>Give it a second life.</span>
+            </h1>
+
+            <p>
+                Find free stuff from people on your campus —
+                books, furniture, electronics, food and more.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="scrollToItems()">
+                    🔎 Find Free Stuff
+                </button>
+
+                <button class="secondary-btn" onclick="openPostModal()">
+                    + Give Something Away
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Impact -->
+    <section class="impact">
+
+        <div class="impact-card">
+            <strong id="itemsCount">127</strong>
+            <span>Items Rehomed</span>
+        </div>
+
+        <div class="impact-card">
+            <strong id="studentsCount">84</strong>
+            <span>Students Helped</span>
+        </div>
+
+        <div class="impact-card">
+            <strong>♻️</strong>
+            <span>Less Campus Waste</span>
+        </div>
+
+    </section>
+
+
+    <!-- Main Feed -->
+    <main id="items-section">
+
+        <div class="section-heading">
+
+            <div>
+                <p class="eyebrow">AVAILABLE NOW</p>
+
+                <h2>Free stuff near you</h2>
+
+                <p>
+                    Everything here is available for a limited time.
+                </p>
+            </div>
+
+            <div class="filter-container">
+
+                <button class="filter active" onclick="filterItems('All', this)">
+                    All
+                </button>
+
+                <button class="filter" onclick="filterItems('Books', this)">
+                    Books
+                </button>
+
+                <button class="filter" onclick="filterItems('Furniture', this)">
+                    Furniture
+                </button>
+
+                <button class="filter" onclick="filterItems('Electronics', this)">
+                    Electronics
+                </button>
+
+                <button class="filter" onclick="filterItems('Food', this)">
+                    Food
+                </button>
+
+                <button class="filter" onclick="filterItems('Other', this)">
+                    Other
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Listings -->
+        <div id="itemsGrid" class="items-grid"></div>
+
+    </main>
+
+
+    <!-- Post Modal -->
+    <div id="postModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closePostModal()">
+                ×
+            </button>
+
+            <h2>Give something away</h2>
+
+            <p class="modal-subtitle">
+                Someone on campus might need exactly what you don't.
+            </p>
+
+            <form id="postForm">
+
+                <label>
+                    Item name
+                    <input
+                        type="text"
+                        id="itemName"
+                        placeholder="e.g. Engineering Mathematics textbook"
+                        required
+                    >
+                </label>
+
+                <label>
+                    Category
+
+                    <select id="itemCategory" required>
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option value="Books">
+                            Books
+                        </option>
+
+                        <option value="Furniture">
+                            Furniture
+                        </option>
+
+                        <option value="Electronics">
+                            Electronics
+                        </option>
+
+                        <option value="Food">
+                            Food
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </label>
+
+                <label>
+                    Description
+
+                    <textarea
+                        id="itemDescription"
+                        placeholder="Describe the item..."
+                        required
+                    ></textarea>
+
+                </label>
+
+                <label>
+                    Location
+
+                    <input
+                        type="text"
+                        id="itemLocation"
+                        placeholder="e.g. Hostel Block A"
+                        required
+                    >
+
+                </label>
+
+                <label>
+                    Pickup deadline
+
+                    <input
+                        type="datetime-local"
+                        id="itemDeadline"
+                        required
+                    >
+
+                </label>
+
+                <label>
+                    Your name
+
+                    <input
+                        type="text"
+                        id="posterName"
+                        placeholder="Your name"
+                        required
+                    >
+
+                </label>
+
+                <label>
+                    Campus email
+
+                    <input
+                        type="email"
+                        id="posterEmail"
+                        placeholder="you@college.edu"
+                        required
+                    >
+
+                </label>
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="urgentItem"
+                    >
+
+                    🚨 This item needs to go today
+
+                </label>
+
+                <button
+                    type="submit"
+                    class="primary-btn full-width"
+                >
+                    Post Item
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Claim Modal -->
+    <div id="claimModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closeClaimModal()">
+                ×
+            </button>
+
+            <h2>Claim this item</h2>
+
+            <p class="modal-subtitle">
+                Enter your details so the owner knows who wants it.
+            </p>
+
+            <form id="claimForm">
+
+                <input
+                    type="hidden"
+                    id="claimItemId"
+                >
+
+                <label>
+                    Your name
+
+                    <input
+                        type="text"
+                        id="claimName"
+                        placeholder="Your name"
+                        required
+                    >
+                </label>
+
+                <label>
+                    Campus email
+
+                    <input
+                        type="email"
+                        id="claimEmail"
+                        placeholder="you@college.edu"
+                        required
+                    >
+                </label>
+
+                <button
+                    type="submit"
+                    class="primary-btn full-width"
+                >
+                    I Want This
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+
+    <footer>
+
+        <h3>Free Stuff Radar ♻️</h3>
+
+        <p>
+            Keep useful things on campus — not in the trash.
+        </p>
+
+        <p class="footer-small">
+            Built for the AWS Zero to Shipped Hackathon 2026.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
